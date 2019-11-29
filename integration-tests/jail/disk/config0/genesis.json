@@ -1,0 +1,98 @@
+{
+    "genesis_time": "2019-11-20T08:56:48.618137Z",
+    "chain_id": "test-ab",
+    "consensus_params": {
+        "block": {
+            "max_bytes": "22020096",
+            "max_gas": "-1",
+            "time_iota_ms": "1000"
+        },
+        "evidence": {
+            "max_age": "100000"
+        },
+        "validator": {
+            "pub_key_types": [
+                "ed25519"
+            ]
+        }
+    },
+    "validators": [
+        {
+            "address": "3B2801C942A40EFE19C922199FD8C768051EC10E",
+            "pub_key": {
+                "type": "tendermint/PubKeyEd25519",
+                "value": "VLLqlYs12Gy7n6I2JcB9HdeNLlrF13J3zU71WagVMpY="
+            },
+            "power": "37500000000",
+            "name": "node0"
+        },
+        {
+            "address": "A643AE2FF9FAE291684873727D5212FBD5B709CB",
+            "pub_key": {
+                "type": "tendermint/PubKeyEd25519",
+                "value": "mKHjNOlSrvWmUgztK2277MEYonu878Ae7sJ9Gzdxur8="
+            },
+            "power": "12500000000",
+            "name": "node1"
+        }
+    ],
+    "app_hash": "9DACC75117C42297530C75E02E4EBA0062BB35C497D04E4091FA262C6352A770",
+    "app_state": {
+        "rewards_pool": "0",
+        "distribution": {
+            "0x0f78f84a78a22dde5db18ac8a954bfac3b6d84c6": [
+                "UnbondedFromGenesis",
+                "3750000000000000000"
+            ],
+            "0x9b2964423dd61fdd4a118b6833890c5c5b550ccd": [
+                "Bonded",
+                "3750000000000000000"
+            ],
+            "0xd1b1726e95759b1510ede82275e89e42b2ab2283": [
+                "UnbondedFromGenesis",
+                "1250000000000000000"
+            ],
+            "0xf8910a85161e26d61ad46e9123d2618e0ee39b4d": [
+                "Bonded",
+                "1250000000000000000"
+            ]
+        },
+        "network_params": {
+            "initial_fee_policy": {
+                "constant": 0,
+                "coefficient": 0
+            },
+            "required_council_node_stake": "1",
+            "unbonding_period": 60,
+            "jailing_config": {
+                "jail_duration": 86,
+                "block_signing_window": 20,
+                "missed_block_threshold": 10
+            },
+            "slashing_config": {
+                "liveness_slash_percent": "0.100",
+                "byzantine_slash_percent": "0.200",
+                "slash_wait_period": 10
+            },
+            "max_validators": 50
+        },
+        "council_nodes": {
+            "0x9b2964423dd61fdd4a118b6833890c5c5b550ccd": [
+                "node0",
+                "node0@example.com",
+                {
+                    "consensus_pubkey_type": "Ed25519",
+                    "consensus_pubkey_b64": "VLLqlYs12Gy7n6I2JcB9HdeNLlrF13J3zU71WagVMpY="
+                }
+            ],
+            "0xf8910a85161e26d61ad46e9123d2618e0ee39b4d": [
+                "node1",
+                "node1@example.com",
+                {
+                    "consensus_pubkey_type": "Ed25519",
+                    "consensus_pubkey_b64": "mKHjNOlSrvWmUgztK2277MEYonu878Ae7sJ9Gzdxur8="
+                }
+            ]
+        }
+    }
+}
