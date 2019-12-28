@@ -172,13 +172,13 @@ impl<T: EnclaveProxy> ChainNodeApp<T> {
         inittx.put(COL_NODE_INFO, LAST_STATE_KEY, &new_state.encode());
         let encoded_height = i64::encode_var_vec(new_state.last_block_height);
         inittx.put(COL_APP_HASHS, &encoded_height, &new_state.last_apphash);
-        // if self.tx_query_address.is_some() {
-        inittx.put(
-            COL_APP_STATES,
-            &encoded_height,
-            &new_state.top_level.encode(),
-        );
-        // }
+        if self.tx_query_address.is_some() {
+            inittx.put(
+                COL_APP_STATES,
+                &encoded_height,
+                &new_state.top_level.encode(),
+            );
+        }
         let wr = self.storage.db.write(inittx);
         if wr.is_err() {
             panic!("db write error: {}", wr.err().unwrap());
