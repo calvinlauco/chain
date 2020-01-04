@@ -1,6 +1,6 @@
 [package]
 name = "tx-validation-enclave"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Crypto.com <chain@crypto.com>"]
 description = "The transaction validation enclave."
 readme = "../../README.md"
@@ -33,4 +33,5 @@ lazy_static  = { version = "1.4", features = ["spin_no_std"] }
 enclave-t-common = { path = "../../enclave-t-common" }
 aes-gcm-siv = "0.3"
 aead = "0.2"
+log = "0.4.8"
 zeroize = { version = "1.0", default-features = false }

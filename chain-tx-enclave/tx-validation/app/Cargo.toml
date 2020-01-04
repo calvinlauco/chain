@@ -1,6 +1,6 @@
 [package]
 name = "tx-validation-app"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Crypto.com <chain@crypto.com>"]
 description = "Application server wrapper around the transaction validation enclave."
 readme = "../../README.md"
@@ -10,7 +10,7 @@ edition = "2018"
 sgx-test = []
 
 [dependencies]
-sled = "0.30.1"
+sled = "0.30.3"
 zmq = "0.9"
 log = "0.4.8"
 env_logger = "0.7.0"
