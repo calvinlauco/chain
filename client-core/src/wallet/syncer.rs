@@ -1,4 +1,5 @@
 #![allow(missing_docs)]
+use indexmap::IndexMap;
 use itertools::{izip, Itertools};
 use non_empty_vec::NonEmpty;
 use std::sync::mpsc::Sender;
@@ -18,7 +19,6 @@ use super::syncer_logic::handle_blocks;
 use crate::service;
 use crate::service::{KeyService, SyncState, Wallet, WalletState, WalletStateMemento};
 use crate::TransactionObfuscation;
-use std::collections::BTreeMap;
 
 /// Transaction decryptor interface for wallet synchronizer
 pub trait TxDecryptor: Clone + Send + Sync {
@@ -485,7 +485,7 @@ pub(crate) struct FilteredBlock {
     /// Block time
     pub block_time: Time,
     /// List of successfully committed transaction ids in this block and their fees
-    pub valid_transaction_fees: BTreeMap<TxId, Fee>,
+    pub valid_transaction_fees: IndexMap<TxId, Fee>,
     /// Bloom filter for view keys and staking addresses
     pub block_filter: BlockFilter,
     /// List of successfully committed transaction of transactions that may need to be queried against
@@ -716,10 +716,7 @@ mod tests {
         );
 
         let result = syncer.sync();
-        assert!(result.is_err());
-        let err = result.unwrap_err();
-        assert_eq!(err.kind(), ErrorKind::VerifyError);
-        assert_eq!(err.message(), "state app hash don't match block header");
+        assert!(result.is_ok());
     }
 
     fn read_asset_file(filename: &str) -> String {
