@@ -51,6 +51,23 @@ impl SyncRpcClient {
         })
     }
 
+    /// Creates a new synchronous websocket RPC client under the provided runtime
+    pub async fn new_with_runtime(url: &str, mut runtime: Runtime) -> Result<Self> {
+        let async_rpc_client = runtime
+            .block_on(async { AsyncRpcClient::new(url).await })
+            .chain(|| {
+                (
+                    ErrorKind::InitializationError,
+                    format!("Unable to connect to tendermint RPC websocket at: {}", url),
+                )
+            })?;
+
+        Ok(Self {
+            runtime: Arc::new(runtime),
+            async_rpc_client,
+        })
+    }
+
     /// Makes an RPC call and deserializes response
     pub fn call<T>(&self, method: &'static str, params: Vec<Value>) -> Result<T>
     where
