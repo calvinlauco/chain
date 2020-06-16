@@ -506,7 +506,7 @@ where
         self.iter_inputs().all(|input| input.has_witness())
     }
 
-    fn to_tx(&self) -> Tx {
+    pub fn to_tx(&self) -> Tx {
         Tx {
             inputs: self
                 .iter_inputs()
