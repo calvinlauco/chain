@@ -39,14 +39,8 @@ impl PrivateKeyAction for PrivateKey {
 
     fn schnorr_sign(&self, tx: &Transaction) -> Result<SchnorrSignature> {
         let tx_id = tx.id();
-        let message = Message::from_slice(&tx_id).chain(|| {
-            (
-                ErrorKind::DeserializationError,
-                "Unable to deserialize message to sign",
-            )
-        })?;
-        let signature = SECP.with(|secp| schnorr_sign(&secp, &message, &self.0));
-        Ok(signature)
+
+        self.schnorr_sign_message(&tx_id)
     }
 
     fn public_key(&self) -> Result<PublicKey> {
@@ -82,6 +76,17 @@ impl PrivateKey {
         })?;
 
         Ok(PrivateKey(secret_key))
+    }
+
+    pub fn schnorr_sign_message(msg: &[u8]) -> Result<SchnorrSignature> {
+        let message = Message::from_slice(msg).chain(|| {
+        (
+            ErrorKind::DeserializationError,
+            "Unable to deserialize message to sign",
+        )
+        })?;
+        let signature = SECP.with(|secp| schnorr_sign(&secp, &message, &self.0));
+        Ok(signature)
     }
 }
 

@@ -28,6 +28,21 @@ impl KeyPairSigner {
             private_key,
         })
     }
+
+    // Sign a message using the key pair
+    pub fn schnorr_sign_message(&self, message: &[u8], signing_addr: &ExtendedAddr) -> Result<TxInWitness> {
+        if *signing_addr != self.extended_addr {
+            return Err(Error::new(
+                ErrorKind::MultiSigError,
+                "Signing address does not belong to the key pair",
+            ));
+        }
+
+        Ok(TxInWitness::TreeSig(
+            self.private_key.schnorr_sign_message(message)?,
+            self.proof.clone(),
+        ))
+    }
 }
 
 fn generate_extended_addr_and_proof(
@@ -67,6 +82,7 @@ impl Signer for KeyPairSigner {
             Ok(SignCondition::Impossible)
         }
     }
+
     fn schnorr_sign(&self, tx: &Transaction, signing_addr: &ExtendedAddr) -> Result<TxInWitness> {
         if *signing_addr != self.extended_addr {
             return Err(Error::new(
